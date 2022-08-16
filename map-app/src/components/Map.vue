@@ -1,42 +1,51 @@
+<template>
+  <div id="mapContainer"></div>
+</template>
+
 <script>
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-// import data from "./Historic-Landmarks.json";
 
-// https://gis.stackexchange.com/questions/402871/custom-maps-in-leaflet-with-maptiler-and-geojson
-// http://jsfiddle.net/davido/r2ms3dnp/
-// https://blog.mastermaps.com/2013/06/showing-zoomify-images-with-leaflet.html
-// https://leafletjs.com/examples/crs-simple/crs-simple.html
 export default {
- name: "VueMap",
- data() {
-   return{
-     center: [37,7749, -122,4194]
-   }},
- methods: {
-   setupLeafletMap: function () {
-     const mapDiv = L.map("mapContainer").setView(this.center, 13);
-     L.tileLayer(
-       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}',
-       {
-         attribution:
-           'Map data (c) <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
-         maxZoom: 18,
-         id: "mapbox/streets-v11",
-         accessToken:"XXX"
-       }
-     ).addTo(mapDiv);
-   },
- },
- mounted() {
-   this.setupLeafletMap();
- },
+  name: "LeafletMap",
+  data() {
+    return {
+      map: null,
+    };
+  },
+  mounted() {
+    this.map = L.map("mapContainer").setView([46.05, 11.05], 5);
+    L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(this.map);
+    //use a mix of renderers
+    const customPane = this.map.createPane("customPane");
+    const canvasRenderer = L.canvas({ pane: "customPane" });
+    customPane.style.zIndex = 399; // put just behind the standard overlay pane which is at 400
+
+    // Markers (N,E)
+    L.marker([50, 14]).addTo(this.map);
+
+    L.marker([53, 20]).addTo(this.map);
+    L.marker([49.5, 19.5]).addTo(this.map);
+    L.marker([49, 25]).addTo(this.map);
+    L.marker([-10, 25]).addTo(this.map);
+    L.marker([10, -25]).addTo(this.map);
+    L.marker([43.01, -7.57]).bindPopup("this is lugo").openPopup().addTo(this.map);
+    L.marker([43.01, -7.57]).bindPopup("this is lugo").openPopup().addTo(this.map);
+  },
+  onBeforeUnmount() {
+    if (this.map) {
+      this.map.remove();
+    }
+  },
 };
 </script>
 
 <style scoped>
 #mapContainer {
- width: 80vw;
- height: 100vh;
+  width: 100vw;
+  height: 100vh;
 }
 </style>

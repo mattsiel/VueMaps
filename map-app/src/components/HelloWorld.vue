@@ -2,6 +2,12 @@
 defineProps<{
   msg: string
 }>()
+// https://gis.stackexchange.com/questions/402871/custom-maps-in-leaflet-with-maptiler-and-geojson
+// http://jsfiddle.net/davido/r2ms3dnp/
+// https://blog.mastermaps.com/2013/06/showing-zoomify-images-with-leaflet.html
+// https://leafletjs.com/examples/crs-simple/crs-simple.html
+// https://leafletjs.com/reference.html#tilelayer-url-template
+// https://codesandbox.io/examples/package/leaflet
 </script>
 
 <template>
