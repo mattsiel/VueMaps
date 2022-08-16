@@ -4,7 +4,9 @@ import L from "leaflet";
 // import data from "./Historic-Landmarks.json";
 
 // https://gis.stackexchange.com/questions/402871/custom-maps-in-leaflet-with-maptiler-and-geojson
-
+// http://jsfiddle.net/davido/r2ms3dnp/
+// https://blog.mastermaps.com/2013/06/showing-zoomify-images-with-leaflet.html
+// https://leafletjs.com/examples/crs-simple/crs-simple.html
 export default {
  name: "VueMap",
  data() {
@@ -15,7 +17,7 @@ export default {
    setupLeafletMap: function () {
      const mapDiv = L.map("mapContainer").setView(this.center, 13);
      L.tileLayer(
-       "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}',
        {
          attribution:
            'Map data (c) <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
